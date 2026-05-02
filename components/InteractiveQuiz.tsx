@@ -16,9 +16,14 @@ export interface QuizQuestion {
 interface InteractiveQuizProps {
   questions: QuizQuestion[]
   stepTitle?: string
+  onComplete?: () => void
 }
 
-export function InteractiveQuiz({ questions, stepTitle = 'Quick Quiz' }: InteractiveQuizProps) {
+export function InteractiveQuiz({ 
+  questions, 
+  stepTitle = 'Quick Quiz',
+  onComplete 
+}: InteractiveQuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
   const [showExplanation, setShowExplanation] = useState(false)
@@ -49,7 +54,14 @@ export function InteractiveQuiz({ questions, stepTitle = 'Quick Quiz' }: Interac
       setSelectedAnswer(null)
       setShowExplanation(false)
     } else {
+      const finalScore = isCorrect ? score + 1 : score
+      const percentage = Math.round((finalScore / questions.length) * 100)
+      const passed = percentage >= 67
+      
       setCompleted(true)
+      if (passed && onComplete) {
+        onComplete()
+      }
     }
   }
 
@@ -63,31 +75,57 @@ export function InteractiveQuiz({ questions, stepTitle = 'Quick Quiz' }: Interac
 
   if (completed) {
     const percentage = Math.round((score / questions.length) * 100)
+    const passed = percentage >= 67
 
     return (
-      <Card className="w-full bg-gradient-to-br from-green-50 to-accent/10 border-green-200">
+      <Card className={`w-full border-2 transition-all duration-500 ${
+        passed 
+          ? 'bg-gradient-to-br from-green-50 to-accent/10 border-green-200 shadow-green-100' 
+          : 'bg-gradient-to-br from-red-50 to-orange-50 border-red-200 shadow-red-100'
+      }`}>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-green-700">
-            <CheckCircle2 className="w-6 h-6" />
-            Quiz Completed!
+          <CardTitle className={`flex items-center gap-2 ${passed ? 'text-green-700' : 'text-red-700'}`}>
+            {passed ? (
+              <>
+                <CheckCircle2 className="w-6 h-6 animate-bounce" />
+                Assessment Passed!
+              </>
+            ) : (
+              <>
+                <XCircle className="w-6 h-6 animate-pulse" />
+                Assessment Failed
+              </>
+            )}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
           <div className="text-center">
-            <div className="text-4xl font-bold text-green-700 mb-2">{percentage}%</div>
-            <p className="text-lg font-semibold text-green-700">
+            <div className={`text-5xl font-black mb-2 ${passed ? 'text-green-700' : 'text-red-700'}`}>
+              {percentage}%
+            </div>
+            <p className={`text-lg font-bold ${passed ? 'text-green-800' : 'text-red-800'}`}>
               You got {score} out of {questions.length} correct!
             </p>
-            <p className="text-green-600 mt-2">
-              {percentage === 100
-                ? "Perfect score! You're a voting expert!"
-                : percentage >= 70
-                  ? "Great job! You're well-prepared."
-                  : 'Good effort! Review the content to strengthen your knowledge.'}
-            </p>
+            <div className={`mt-4 p-4 rounded-xl inline-block ${passed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+              {passed ? (
+                <div className="flex flex-col items-center gap-1">
+                  <span className="font-bold uppercase tracking-widest text-[10px]">Result: PASSED</span>
+                  <p className="text-sm">Great job! The next step is now unlocked.</p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-1">
+                  <span className="font-bold uppercase tracking-widest text-[10px]">Result: FAILED</span>
+                  <p className="text-sm font-medium">You need at least 67% (2/3) to unlock the next step.</p>
+                </div>
+              )}
+            </div>
           </div>
-          <Button onClick={handleRestart} className="w-full bg-green-600 hover:bg-green-700">
-            Retake Quiz
+          <Button 
+            onClick={handleRestart} 
+            variant={passed ? "default" : "destructive"}
+            className={`w-full py-6 text-lg font-bold shadow-md ${passed ? 'bg-green-600 hover:bg-green-700' : ''}`}
+          >
+            {passed ? 'Retake to Improve' : 'Try Again to Unlock'}
           </Button>
         </CardContent>
       </Card>
@@ -166,11 +204,10 @@ export function InteractiveQuiz({ questions, stepTitle = 'Quick Quiz' }: Interac
 
         {showExplanation && (
           <div
-            className={`p-4 rounded-lg border-l-4 ${
-              isCorrect
+            className={`p-4 rounded-lg border-l-4 ${isCorrect
                 ? 'border-green-500 bg-green-50 text-green-900'
                 : 'border-red-500 bg-red-50 text-red-900'
-            }`}
+              }`}
           >
             <div className="flex gap-2">
               {isCorrect ? (
