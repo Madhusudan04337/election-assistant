@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to vote in India - A complete guide for first-time voters">
+    <title>Voter Education Guide - Learn How to Vote in India</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header/Navigation -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🗳️ Voter Guide</h1>
+                    <p class="tagline">Learn to Vote in 12 Steps</p>
+                </div>
+                <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            <!-- Sidebar Quick Links -->
+            <aside class="sidebar">
+                <nav class="quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><button class="quick-link-btn" data-section="home">Home</button></li>
+                        <li><button class="quick-link-btn" data-section="steps">Steps</button></li>
+                        <li><button class="quick-link-btn" data-section="timeline">Timeline</button></li>
+                        <li><button class="quick-link-btn" data-section="faq">FAQ</button></li>
+                        <li><button class="quick-link-btn" data-section="about">About</button></li>
+                    </ul>
+                </nav>
+
+                <div class="progress-section">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">0/12 Steps Completed</p>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="search-bar" placeholder="Search steps, FAQs, or topics..." aria-label="Search content">
+                    <button class="search-btn" aria-label="Search">🔍</button>
+                </div>
+
+                <!-- Home Section -->
+                <section id="home-section" class="section active">
+                    <div class="hero">
+                        <h2>Welcome to Your Voter Guide!</h2>
+                        <p>Learn how to vote in India in 12 simple steps. Whether you're 18 and voting for the first time or just want to refresh your knowledge, this guide will help you understand the complete voting process.</p>
+                        <button class="cta-button primary" onclick="switchSection('steps')">Start Learning</button>
+                    </div>
+
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <h3>📋 12 Steps</h3>
+                            <p>Learn the entire voting process</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>❓ FAQs</h3>
+                            <p>Get answers to common questions</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>📅 Timeline</h3>
+                            <p>Understand election schedule</p>
+                        </div>
+                        <div class="info-card">
+                            <h3>✅ Quiz</h3>
+                            <p>Test your voting knowledge</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Steps Section -->
+                <section id="steps-section" class="section">
+                    <h2>The 12 Steps to Voting</h2>
+                    
+                    <div class="step-navigation">
+                        <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous step">← Previous</button>
+                        <div class="step-counter">
+                            <span id="currentStep">1</span> / <span>12</span>
+                        </div>
+                        <button class="nav-btn next-btn" id="nextBtn" aria-label="Next step">Next →</button>
+                    </div>
+
+                    <div class="step-container" id="stepContainer">
+                        <!-- Step cards will be populated by JavaScript -->
+                    </div>
+
+                    <div class="step-navigation">
+                        <button class="nav-btn prev-btn" id="prevBtn2" aria-label="Previous step">← Previous</button>
+                        <button class="cta-button secondary" onclick="switchSection('faq')">View All FAQs</button>
+                        <button class="nav-btn next-btn" id="nextBtn2" aria-label="Next step">Next →</button>
+                    </div>
+                </section>
+
+                <!-- Timeline Section -->
+                <section id="timeline-section" class="section">
+                    <h2>Election Timeline</h2>
+                    <p class="section-description">Here's what happens at each stage of the election process:</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">1</div>
+                            <div class="timeline-content">
+                                <h3>Election Announcement</h3>
+                                <p>The government announces that elections will be held. Dates are set.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">2</div>
+                            <div class="timeline-content">
+                                <h3>Nomination Period</h3>
+                                <p>Candidates submit their nominations to run in the elections.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">3</div>
+                            <div class="timeline-content">
+                                <h3>Campaign Period</h3>
+                                <p>Candidates campaign to convince voters to vote for them.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">4</div>
+                            <div class="timeline-content">
+                                <h3>Polling Day</h3>
+                                <p>Voting booths open and voters cast their votes.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">5</div>
+                            <div class="timeline-content">
+                                <h3>Vote Counting</h3>
+                                <p>Election officials count all votes in a secure, transparent process.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker">6</div>
+                            <div class="timeline-content">
+                                <h3>Results Declaration</h3>
+                                <p>Official results are announced and winners are declared.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section id="faq-section" class="section">
+                    <h2>Frequently Asked Questions</h2>
+                    <p class="section-description">Find answers to common questions about voting:</p>
+
+                    <div class="faq-container" id="faqContainer">
+                        <!-- FAQ items will be populated by JavaScript -->
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about-section" class="section">
+                    <h2>About This Guide</h2>
+                    <div class="about-content">
+                        <h3>Why This Guide?</h3>
+                        <p>This voter education guide is designed to help first-time voters in India understand the complete voting process in simple, easy-to-understand language.</p>
+                        
+                        <h3>Who Is This For?</h3>
+                        <ul>
+                            <li>First-time voters (18+ years old)</li>
+                            <li>Students learning about democracy</li>
+                            <li>Anyone who wants to understand voting better</li>
+                            <li>Parents and teachers guiding young voters</li>
+                        </ul>
+
+                        <h3>What You'll Learn</h3>
+                        <ul>
+                            <li>Check if you're eligible to vote</li>
+                            <li>How to register as a voter</li>
+                            <li>Where and when voting happens</li>
+                            <li>What to bring to the polling booth</li>
+                            <li>Step-by-step voting process</li>
+                            <li>How votes are counted</li>
+                            <li>Common questions and answers</li>
+                        </ul>
+
+                        <h3>Contact & Resources</h3>
+                        <p>For official information, visit: <a href="https://www.eci.gov.in" target="_blank" rel="noopener noreferrer">Election Commission of India (eci.gov.in)</a></p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Quiz Modal -->
+        <div class="modal" id="quizModal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeQuiz()">&times;</button>
+                <h3 id="quizQuestion">Quiz Question</h3>
+                <div class="quiz-options" id="quizOptions">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+                <button class="cta-button primary" onclick="submitQuiz()">Submit Answer</button>
+                <div id="quizFeedback" class="quiz-feedback" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Voter Education Guide. All rights reserved.</p>
+                <p>This is an educational resource. For official information, visit <a href="https://www.eci.gov.in" target="_blank" rel="noopener noreferrer">eci.gov.in</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
